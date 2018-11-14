@@ -7,4 +7,21 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ngChat';
+  sideNavOptions = [
+    {
+      name: 'User settings',
+      icon: 'settings',
+      link: 'user'
+    },
+    {
+      name: 'Chat',
+      icon: 'chat_bubble_outline',
+      link: 'chat'
+    },
+    {
+      name: 'Todos',
+      icon: 'list',
+      link: 'todos'
+    }
+  ];
 }

@@ -1,0 +1,31 @@
+.mat-sidenav-container {
+  height: 100%;
+}
+
+.mat-sidenav-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.mat-toolbar {
+  flex-shrink: 0;
+  flex-basis: 64px;
+}
+
+.content {
+  flex-grow: 1;
+}
+
+.mat-sidenav {
+  width: 300px;
+}
+
+.mat-subheader {
+  margin:0;
+}
+
+.mat-button {
+  width: 100%;
+  text-align: start;
+}
