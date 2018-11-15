@@ -1,3 +1,29 @@
-<p>
-  chat works!
-</p>
+<div *ngIf="userJoinedChat" class="chat">
+  <div class="chat-messages">
+    <app-chat-bubble
+      *ngFor="let message of messages"
+      [message]="message"
+      [mine]="message.userName === userService.userName">
+    </app-chat-bubble>
+  </div>
+  <form class="chat-input" (ngSubmit)="sendMessage()">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Write message"
+        name="message"
+        [(ngModel)]="message"
+      >
+    </mat-form-field>
+    <button mat-icon-button>
+      <mat-icon>send</mat-icon>
+    </button>
+  </form>
+</div>
+<div class="join-chat" *ngIf="!userJoinedChat">
+    <button
+      (click)="joinChat()"
+      mat-raised-button
+      color="accent"
+    >Click me!</button>
+</div>

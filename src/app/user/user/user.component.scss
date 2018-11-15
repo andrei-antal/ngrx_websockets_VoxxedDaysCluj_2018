@@ -1,0 +1,29 @@
+@import '~@angular/material/theming';
+
+:host {
+  display: block;
+  padding: 2em 1em;
+}
+
+.mat-flat-button {
+  margin-left: 1em;
+}
+
+.avatars {
+  display: flex;
+  justify-content: space-around;
+  margin: 1em 0;
+
+  .selected {
+    color: pink;
+    border: 3px solid pink;
+    border-radius: 16px;
+  }
+}
+
+.mat-icon {
+  font-size: 4em;
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+}

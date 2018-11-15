@@ -1,0 +1,14 @@
+<b>Name:</b><br>
+<mat-form-field class="example-full-width">
+  <input matInput value="Sushi" [(ngModel)]="userName">
+</mat-form-field>
+<button (click)="saveName()" mat-flat-button color="primary">Save Name</button>
+<br>
+<b>Avatar:</b><br>
+<div class="avatars">
+  <mat-icon
+    *ngFor="let avatar of userService.avatars"
+    [ngClass]="{selected: avatar === userAvatar}"
+    (click)="changeAvatar(avatar)"
+  >{{avatar}}</mat-icon>
+</div>

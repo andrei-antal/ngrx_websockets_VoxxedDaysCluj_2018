@@ -1,0 +1,52 @@
+.chat-message {
+  display: flex;
+  margin-top: 2em;
+}
+
+.container {
+  display: flex;
+  max-width:75%;
+}
+
+.avatar {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.time {
+  padding: 0 0.5em;
+  font-size: 0.75em;
+  margin-bottom: -1.25em;
+}
+
+.bubble {
+  background: #0288D1;
+  margin-bottom: 4px;
+  color:white;
+  padding: 0.75em 1.25em;
+  border-radius: 2em;
+  border-bottom-left-radius: 0;
+}
+
+.name {
+  font-size: 0.75em;
+  margin: 0 0 2px 16px;
+}
+
+.mine {
+  flex-direction: row-reverse;
+
+  .container {
+    flex-direction: row-reverse;
+  }
+
+  .time {
+    text-align: right;
+  }
+
+  .bubble {
+    background: #FB8C00;
+    border-bottom-left-radius: 2em;
+    border-bottom-right-radius: 0;
+  }
+}

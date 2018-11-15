@@ -1,0 +1,18 @@
+<div class="chat-message" [ngClass]="{mine: mine}" >
+  <div class="container">
+    <div class="avatar">
+      <mat-icon>{{message.userAvatar}}</mat-icon>
+    </div>
+    <div class="message">
+      <div class="name" *ngIf="!mine">
+          {{message.userName}}
+      </div>
+      <div class="bubble">
+        {{message.contents}}
+      </div>
+      <div class="time">
+          {{message.timestamp | date:'hh:mm'}}
+      </div>
+    </div>
+  </div>
+</div>
