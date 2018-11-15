@@ -6,14 +6,17 @@ import { ChatComponent } from './chat/chat.component';
 import { MaterialModule } from '../material.module';
 import { FormsModule } from '@angular/forms';
 import { ChatBubbleComponent } from './chat-bubble/chat-bubble.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ChatEventComponent } from './chat-event/chat-event.component';
 
 @NgModule({
-  declarations: [ChatComponent, ChatBubbleComponent],
+  declarations: [ChatComponent, ChatBubbleComponent, ChatEventComponent],
   imports: [
     CommonModule,
     ChatRoutingModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ]
 })
 export class ChatModule { }

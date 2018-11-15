@@ -1,10 +1,16 @@
-<div *ngIf="userJoinedChat" class="chat">
+<div class="chat">
   <div class="chat-messages">
-    <app-chat-bubble
-      *ngFor="let message of messages"
-      [message]="message"
-      [mine]="message.userName === userService.userName">
-    </app-chat-bubble>
+    <div *ngFor="let message of messages | async">
+        <app-chat-bubble
+          *ngIf="!message.event"
+          [message]="message"
+          [mine]="message.userName === userService.userName">
+        </app-chat-bubble>
+        <app-chat-event *ngIf="message.event" [event]="message">
+
+        </app-chat-event>
+    </div>
+
   </div>
   <form class="chat-input" (ngSubmit)="sendMessage()">
     <mat-form-field>
@@ -19,11 +25,4 @@
       <mat-icon>send</mat-icon>
     </button>
   </form>
-</div>
-<div class="join-chat" *ngIf="!userJoinedChat">
-    <button
-      (click)="joinChat()"
-      mat-raised-button
-      color="accent"
-    >Click me!</button>
 </div>

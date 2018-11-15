@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ChatMessage } from '../chat-message';
+import { ChatMessage } from '../chat-models';
 
 @Component({
   selector: 'app-chat-bubble',
