@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
+import { Store } from '@ngrx/store';
+import { State } from 'src/app/reducers';
+import { ChangeUserName, ChangeUserAvatar } from '../user.actions';
 
 @Component({
   selector: 'app-user',
@@ -9,19 +12,23 @@ import { UserService } from '../user.service';
 export class UserComponent implements OnInit {
   userName: string;
   userAvatar: string;
-  constructor(public userService: UserService) { }
+  avatars: string[];
+  constructor(private store: Store<State>) { }
 
   ngOnInit() {
-    this.userName = this.userService.userName;
-    this.userAvatar = this.userService.userAvatar;
+    this.store.select('user')
+      .subscribe(user => {
+        this.userName = user.name;
+        this.userAvatar = user.avatar;
+        this.avatars = user.avatars;
+      });
   }
 
   saveName() {
-    this.userService.userName = this.userName;
+    this.store.dispatch(new ChangeUserName(this.userName));
   }
 
   changeAvatar(newAvatar) {
-    this.userAvatar = newAvatar;
-    this.userService.userAvatar = newAvatar;
+    this.store.dispatch(new ChangeUserAvatar(newAvatar));
   }
 }

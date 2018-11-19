@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketService } from './socket.service';
+import { Store } from '@ngrx/store';
+import { State } from './reducers';
 
 @Component({
   selector: 'app-root',
@@ -26,10 +28,11 @@ export class AppComponent implements OnInit{
     }
   ];
 
-  constructor(private socketService: SocketService) {
+  constructor(private socketService: SocketService, private store: Store<State>) {
   }
 
   ngOnInit() {
     this.socketService.initSocket();
+    this.store.select('user').subscribe(user => this.title = `Welcome ${user.name} to ngChat`);
   }
 }

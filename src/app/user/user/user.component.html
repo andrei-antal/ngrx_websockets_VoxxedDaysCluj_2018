@@ -7,7 +7,7 @@
 <b>Avatar:</b><br>
 <div class="avatars">
   <mat-icon
-    *ngFor="let avatar of userService.avatars"
+    *ngFor="let avatar of avatars"
     [ngClass]="{selected: avatar === userAvatar}"
     (click)="changeAvatar(avatar)"
   >{{avatar}}</mat-icon>

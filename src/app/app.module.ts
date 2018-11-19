@@ -8,6 +8,9 @@ import { UserModule } from './user/user.module';
 import { ChatModule } from './chat/chat.module';
 import { TodosModule } from './todos/todos.module';
 import { MaterialModule } from './material.module';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ import { MaterialModule } from './material.module';
     UserModule,
     ChatModule,
     TodosModule,
-    MaterialModule
+    MaterialModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreDevtoolsModule.instrument(),
   ],
   providers: [],
   bootstrap: [AppComponent]
