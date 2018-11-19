@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ChatMessages } from '../chat-models';
+import { ChatMessages, ChatMessage, ChatEvent } from '../chat-models';
 import { UserService } from 'src/app/user/user.service';
 import { ChatService } from '../chat.service';
 import { Observable } from 'rxjs';
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class ChatComponent implements OnInit, OnDestroy {
   message = '';
-  messages: Observable<ChatMessage | Chat>;
+  messages: Observable<(ChatMessage | ChatEvent)[]>;
 
   constructor(public userService: UserService, private chatService: ChatService) { }
 

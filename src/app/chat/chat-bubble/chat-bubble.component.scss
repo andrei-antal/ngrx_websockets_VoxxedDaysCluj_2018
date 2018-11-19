@@ -11,6 +11,18 @@
 .avatar {
   display: flex;
   flex-direction: column-reverse;
+  .mat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8em;
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    margin-right: .3em;
+    margin-bottom: -0.5em;
+  }
 }
 
 .time {
@@ -48,5 +60,10 @@
     background: #FB8C00;
     border-bottom-left-radius: 2em;
     border-bottom-right-radius: 0;
+  }
+
+  .avatar .mat-icon {
+    margin-left: .3em;
+    margin-right: 0
   }
 }
