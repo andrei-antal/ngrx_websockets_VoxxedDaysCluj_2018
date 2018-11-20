@@ -11,8 +11,10 @@ app.use((req, res, next) => {
 });
 
 app.get('/messages', (req, res, next) => {
-  res.json(messages);
-  next();
+  setTimeout(() => {
+    res.json(messages);
+    next();
+  }, 2000);
 });
 
 io.on('connection', function(socket){
