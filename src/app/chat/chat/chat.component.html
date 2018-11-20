@@ -1,4 +1,4 @@
-<div class="chat">
+<div class="chat" *ngIf="!messagesLoading; else loading">
   <div class="chat-messages">
     <div *ngFor="let message of messages | async">
         <app-chat-bubble
@@ -7,7 +7,6 @@
           [mine]="message.userName === userService.userName">
         </app-chat-bubble>
         <app-chat-event *ngIf="message.event" [event]="message">
-
         </app-chat-event>
     </div>
 
@@ -27,3 +26,9 @@
     </button>
   </form>
 </div>
+<ng-template #loading>
+  <div class="loading">
+    <mat-spinner></mat-spinner><br>
+    Loading Messages
+  </div>
+</ng-template>
