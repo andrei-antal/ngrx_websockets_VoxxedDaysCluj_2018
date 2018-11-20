@@ -21,7 +21,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatService.joinChat();
     this.messages = this.chatService.messages$;
     this.messages.pipe(first()).subscribe(() => {
-      // this.messagesLoading = false;
+      this.messagesLoading = false;
     });
   }
 
