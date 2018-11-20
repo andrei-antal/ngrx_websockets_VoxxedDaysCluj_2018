@@ -1,15 +1,14 @@
 <div class="chat" *ngIf="!messagesLoading; else loading">
   <div class="chat-messages">
-    <div *ngFor="let message of messages | async">
+    <div *ngFor="let message of messages">
         <app-chat-bubble
           *ngIf="!message.event"
           [message]="message"
-          [mine]="message.userName === userService.userName">
+          [mine]="message.mine">
         </app-chat-bubble>
         <app-chat-event *ngIf="message.event" [event]="message">
         </app-chat-event>
     </div>
-
   </div>
   <form class="chat-input" (ngSubmit)="sendMessage()">
     <mat-form-field>

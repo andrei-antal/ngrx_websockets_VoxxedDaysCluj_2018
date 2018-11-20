@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
-import { ChatMessage, ChatEvent } from './chat/chat-models';
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { ChatEvent, ChatMessageAPI } from './chat/chat-models';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class SocketService {
   public readonly SERVER_URL = 'http://localhost:3000';
   private socket: SocketIOClient.Socket;
 
-  private message = new Subject<ChatMessage>();
+  private message = new Subject<ChatMessageAPI>();
   private events = new Subject<ChatEvent>();
 
   get message$() {
@@ -32,7 +32,7 @@ export class SocketService {
     this.socket.on('new-event', event => this.events.next(event));
   }
 
-  sendMessage(message: ChatMessage) {
+  sendMessage(message: ChatMessageAPI) {
     this.socket.emit('message-sent', message);
   }
 
