@@ -1,3 +1,8 @@
+:host {
+  height: calc(100vh - 64px);
+  overflow: auto;
+}
+
 .join-chat {
   margin: 2em 1em;
 

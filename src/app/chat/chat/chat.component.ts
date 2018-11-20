@@ -1,9 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ChatMessage, ChatEvent } from '../chat-models';
-import { UserService } from 'src/app/user/user.service';
+import { ChatMessages } from '../chat-models';
 import { ChatService } from '../chat.service';
-import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chat',
@@ -12,17 +9,18 @@ import { first } from 'rxjs/operators';
 })
 export class ChatComponent implements OnInit, OnDestroy {
   message = '';
-  messages: Observable<(ChatMessage | ChatEvent)[]>;
+  messages: ChatMessages;
   messagesLoading = true;
 
-  constructor(public userService: UserService, private chatService: ChatService) { }
+  constructor(private chatService: ChatService) { }
 
   ngOnInit() {
     this.chatService.joinChat();
-    this.messages = this.chatService.messages$;
-    this.messages.pipe(first()).subscribe(() => {
-      this.messagesLoading = false;
-    });
+    this.chatService.messages$
+      .subscribe(messages => {
+        this.messages = messages;
+        this.messagesLoading = false;
+      });
   }
 
   ngOnDestroy() {
