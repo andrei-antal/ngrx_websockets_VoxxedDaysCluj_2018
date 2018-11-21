@@ -11,7 +11,8 @@ import { MaterialModule } from './material.module';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
+import { EffectsModule } from '@ngrx/effects';
+import { ChatEffects } from './chat/chat.effects';
 @NgModule({
   declarations: [
     AppComponent
@@ -25,6 +26,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     TodosModule,
     MaterialModule,
     StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([ChatEffects]),
     StoreDevtoolsModule.instrument(),
   ],
   providers: [],

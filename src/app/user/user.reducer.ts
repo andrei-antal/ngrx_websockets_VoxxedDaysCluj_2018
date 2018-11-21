@@ -10,7 +10,7 @@ export interface UserState {
 
 const initialState: UserState = {
   name: 'My User',
-  avatar: AVATARS[0],
+  avatar: 'face',
   avatars: AVATARS
 };
 

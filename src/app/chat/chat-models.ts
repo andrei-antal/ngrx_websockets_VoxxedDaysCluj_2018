@@ -15,3 +15,4 @@ export interface ChatEvent {
 }
 
 export type ChatMessages = (ChatMessage | ChatEvent)[];
+export type ChatMessagesAPI = (ChatMessageAPI | ChatEvent)[];
