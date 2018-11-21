@@ -4,11 +4,13 @@ import { ActionTypes } from './chat.actions';
 export interface ChatState {
   messages: ChatMessages;
   messagesLoaded: boolean;
+  joinedChat: boolean;
 }
 
 const initState: ChatState = {
   messages: [],
-  messagesLoaded: false
+  messagesLoaded: false,
+  joinedChat: false
 };
 
 export function chatReducer(
@@ -29,6 +31,16 @@ export function chatReducer(
           action.payload,
           ...state.messages
         ]
+      };
+    case ActionTypes.JoinChat:
+      return {
+        ...state,
+        joinedChat: true
+      };
+    case ActionTypes.LeaveChat:
+      return {
+        ...state,
+        joinedChat: false
       };
   }
   return state;

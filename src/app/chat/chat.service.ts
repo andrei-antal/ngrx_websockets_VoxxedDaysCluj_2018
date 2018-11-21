@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ChatMessages, ChatMessage, ChatEvent, ChatMessageAPI } from './chat-models';
+import { ChatMessages, ChatMessage, ChatEvent } from './chat-models';
 import { UserService } from '../user/user.service';
 import { SocketService } from '../socket.service';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { State } from '../reducers';
+import { MessageReceived, JoinChat, LeaveChat } from './chat.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -18,24 +19,10 @@ export class ChatService {
   constructor(
     private userService: UserService,
     private socketService: SocketService,
-    private http: HttpClient
+    private store$: Store<State>
   ) { }
 
-  joinChat() {
-    // this.messages$ = this.http.get<ChatMessages>(`${this.socketService.SERVER_URL}/messages`)
-    //   .pipe(
-    //     switchMap((messages: ChatMessages) => {
-    //       this.messages.next(messages.map(this.formatMessages));
-    //       return this.messages.asObservable();
-    //     })
-    //   );
-
-    const joinEvent: ChatEvent = {
-       event: `${this.userService.userName} has joined`,
-       timestamp: new Date(),
-    };
-    this.socketService.sendEvent(joinEvent);
-
+  initChat() {
     this.messageSub = this.socketService.message$.subscribe(
       (newMessage) => this.addNewItem({ ...newMessage, mine: false})
     );
@@ -44,36 +31,32 @@ export class ChatService {
     );
   }
 
+  joinChat() {
+    const joinEvent: ChatEvent = {
+       event: `${this.userService.userName} has joined`,
+       timestamp: new Date(),
+    };
+    this.socketService.sendEvent(joinEvent);
+    this.store$.dispatch(new JoinChat());
+  }
+
   formatMessages = (message) => {
     return { ...message, mine: message.userName === this.userService.userName };
   }
 
   private addNewItem(newMessage: ChatMessage | ChatEvent) {
-    this.messages.next([newMessage, ...this.messages.getValue()]);
+    // this.messages.next([newMessage, ...this.messages.getValue()]);
+    this.store$.dispatch(new MessageReceived(newMessage));
   }
 
   leaveChat() {
-    this.messageSub.unsubscribe();
-    this.eventSub.unsubscribe();
+    // this.messageSub.unsubscribe();
+    // this.eventSub.unsubscribe();
+    this.store$.dispatch(new LeaveChat());
     const leaveEvent: ChatEvent = {
       event: `${this.userService.userName} has left`,
       timestamp: new Date(),
     };
     this.socketService.sendEvent(leaveEvent);
   }
-
-  // sendMessage(text) {
-  //   const newMessage: ChatMessageAPI = {
-  //     contents: text,
-  //     timestamp: new Date(),
-  //     userAvatar: this.userService.userAvatar,
-  //     userName: this.userService.userName,
-  //   };
-  //   this.socketService.sendMessage(newMessage);
-
-  //   this.messages.next([
-  //     { ...newMessage, mine: true },
-  //     ...this.messages.getValue()
-  //   ]);
-  // }
 }

@@ -5,7 +5,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { switchMap, withLatestFrom, map, tap } from 'rxjs/operators';
 import { ActionTypes, MessagesLoaded, MessageReceived, SendMessage } from './chat.actions';
-import { ChatMessagesAPI, ChatMessages, ChatMessageAPI } from './chat-models';
+import { ChatMessagesAPI, ChatMessages } from './chat-models';
 import { SocketService } from '../socket.service';
 import {State} from '../reducers';
 import { UserState } from '../user/user.reducer';
