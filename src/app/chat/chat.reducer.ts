@@ -22,6 +22,14 @@ export function chatReducer(
         messages: action.payload,
         messagesLoaded: true
       };
+    case ActionTypes.MessageReceived:
+      return {
+        ...state,
+        messages: [
+          action.payload,
+          ...state.messages
+        ]
+      };
   }
   return state;
 }

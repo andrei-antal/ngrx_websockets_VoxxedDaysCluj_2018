@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import { switchMap, withLatestFrom, map } from 'rxjs/operators';
-import { ActionTypes, MessagesLoaded } from './chat.actions';
-import { ChatMessagesAPI, ChatMessages } from './chat-models';
+import { switchMap, withLatestFrom, map, tap } from 'rxjs/operators';
+import { ActionTypes, MessagesLoaded, MessageReceived, SendMessage } from './chat.actions';
+import { ChatMessagesAPI, ChatMessages, ChatMessageAPI } from './chat-models';
 import { SocketService } from '../socket.service';
 import {State} from '../reducers';
 import { UserState } from '../user/user.reducer';
@@ -34,5 +34,20 @@ export class ChatEffects {
             })
           )
       )
+    );
+
+  @Effect()
+  sendMessage$: Observable<Action> = this.actions$.ofType(ActionTypes.SendMessage)
+    .pipe(
+      withLatestFrom(this.store$.select<UserState>('user')),
+      map(([action, userState]) => ({
+          contents: (action as SendMessage).payload,
+          timestamp: new Date(),
+          userAvatar: userState.avatar,
+          userName: userState.name,
+        })
+      ),
+      tap((newMessage: any) => this.socketService.sendMessage(newMessage)),
+      map(newMessage => new MessageReceived({...newMessage, mine: true}))
     );
 }

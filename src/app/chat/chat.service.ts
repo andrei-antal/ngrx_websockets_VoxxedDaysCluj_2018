@@ -22,13 +22,13 @@ export class ChatService {
   ) { }
 
   joinChat() {
-    this.messages$ = this.http.get<ChatMessages>(`${this.socketService.SERVER_URL}/messages`)
-      .pipe(
-        switchMap((messages: ChatMessages) => {
-          this.messages.next(messages.map(this.formatMessages));
-          return this.messages.asObservable();
-        })
-      );
+    // this.messages$ = this.http.get<ChatMessages>(`${this.socketService.SERVER_URL}/messages`)
+    //   .pipe(
+    //     switchMap((messages: ChatMessages) => {
+    //       this.messages.next(messages.map(this.formatMessages));
+    //       return this.messages.asObservable();
+    //     })
+    //   );
 
     const joinEvent: ChatEvent = {
        event: `${this.userService.userName} has joined`,
@@ -62,18 +62,18 @@ export class ChatService {
     this.socketService.sendEvent(leaveEvent);
   }
 
-  sendMessage(text) {
-    const newMessage: ChatMessageAPI = {
-      contents: text,
-      timestamp: new Date(),
-      userAvatar: this.userService.userAvatar,
-      userName: this.userService.userName,
-    };
-    this.socketService.sendMessage(newMessage);
+  // sendMessage(text) {
+  //   const newMessage: ChatMessageAPI = {
+  //     contents: text,
+  //     timestamp: new Date(),
+  //     userAvatar: this.userService.userAvatar,
+  //     userName: this.userService.userName,
+  //   };
+  //   this.socketService.sendMessage(newMessage);
 
-    this.messages.next([
-      { ...newMessage, mine: true },
-      ...this.messages.getValue()
-    ]);
-  }
+  //   this.messages.next([
+  //     { ...newMessage, mine: true },
+  //     ...this.messages.getValue()
+  //   ]);
+  // }
 }

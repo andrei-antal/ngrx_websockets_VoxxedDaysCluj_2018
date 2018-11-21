@@ -3,7 +3,7 @@ import { ChatMessages } from '../chat-models';
 import { ChatService } from '../chat.service';
 import { ChatState } from '../chat.reducer';
 import { Store } from '@ngrx/store';
-import { LoadMessages } from '../chat.actions';
+import { LoadMessages, SendMessage } from '../chat.actions';
 
 @Component({
   selector: 'app-chat',
@@ -15,23 +15,17 @@ export class ChatComponent implements OnInit, OnDestroy {
   messages: ChatMessages;
   messagesLoading = true;
 
-  constructor(private chatService: ChatService, private $store: Store<ChatState>) { }
+  constructor(private chatService: ChatService, private store$: Store<ChatState>) { }
 
   ngOnInit() {
     this.chatService.joinChat();
-    // this.chatService.messages$
-    //   .subscribe(messages => {
-    //     this.messages = messages;
-    //     this.messagesLoading = false;
-    //   });
-    this.$store.select('chat').subscribe(({messages, messagesLoaded}) => {
+    this.store$.select('chat').subscribe(({messages, messagesLoaded}) => {
       this.messagesLoading = !messagesLoaded;
       this.messages = messages;
       if (this.messagesLoading) {
-        this.$store.dispatch(new LoadMessages());
+        this.store$.dispatch(new LoadMessages());
       }
     });
-
   }
 
   ngOnDestroy() {
@@ -39,7 +33,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   sendMessage() {
-    this.chatService.sendMessage(this.message);
+    // this.chatService.sendMessage(this.message);
+    this.store$.dispatch(new SendMessage(this.message));
     this.message = '';
   }
 }

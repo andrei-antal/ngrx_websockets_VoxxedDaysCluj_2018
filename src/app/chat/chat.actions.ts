@@ -1,9 +1,11 @@
 import { Action } from '@ngrx/store';
-import { ChatMessages } from './chat-models';
+import { ChatMessages, ChatMessageAPI } from './chat-models';
 
 export enum ActionTypes {
-  LoadMessages = '[CHAT] Load messages',
-  MessagesLoaded = '[CHAT] Messages Loaded'
+  LoadMessages = '[CHAT] Load essages',
+  MessagesLoaded = '[CHAT] Messages Loaded',
+  SendMessage = '[CHAT] Message Sent',
+  MessageReceived = '[CHAT] Message Received';
 }
 export class LoadMessages implements Action {
   readonly type = ActionTypes.LoadMessages;
@@ -12,4 +14,14 @@ export class LoadMessages implements Action {
 export class MessagesLoaded implements Action {
   readonly type = ActionTypes.MessagesLoaded;
   constructor(public payload: ChatMessages) { }
+}
+
+export class SendMessage implements Action {
+  readonly type = ActionTypes.SendMessage;
+  constructor(public payload: string) {}
+}
+
+export class MessageReceived implements Action {
+  readonly type = ActionTypes.MessageReceived;
+  constructor(public payload: ChatMessageAPI) {}
 }
