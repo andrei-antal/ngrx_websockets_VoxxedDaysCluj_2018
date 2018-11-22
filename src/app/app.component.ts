@@ -11,6 +11,7 @@ import { ChatService } from './chat/chat.service';
 })
 export class AppComponent implements OnInit{
   title = 'ngChat';
+  missed;
   sideNavOptions = [
     {
       name: 'User settings',
@@ -39,5 +40,6 @@ export class AppComponent implements OnInit{
     this.socketService.initSocket();
     this.chatService.initChat();
     this.store.select('user').subscribe(user => this.title = `Welcome ${user.name} to ngChat`);
+    this.store.select('chat').subscribe(chat => this.missed = chat.missed);
   }
 }

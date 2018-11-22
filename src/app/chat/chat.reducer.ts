@@ -5,12 +5,14 @@ export interface ChatState {
   messages: ChatMessages;
   messagesLoaded: boolean;
   joinedChat: boolean;
+  missed: number;
 }
 
 const initState: ChatState = {
   messages: [],
   messagesLoaded: false,
-  joinedChat: false
+  joinedChat: false,
+  missed: 0
 };
 
 export function chatReducer(
@@ -30,12 +32,14 @@ export function chatReducer(
         messages: [
           action.payload,
           ...state.messages
-        ]
+        ],
+        missed: !state.joinedChat ? state.missed + 1 : 0
       };
     case ActionTypes.JoinChat:
       return {
         ...state,
-        joinedChat: true
+        joinedChat: true,
+        missed: 0
       };
     case ActionTypes.LeaveChat:
       return {

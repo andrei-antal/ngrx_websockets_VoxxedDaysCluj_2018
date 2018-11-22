@@ -7,6 +7,7 @@
         <a [routerLink]="[item.link]" mat-button [disableRipple]="true" (click)="sidenav.toggle()">
           <mat-icon>{{item.icon}}</mat-icon>
           {{item.name}}
+          <span class="missed" *ngIf="item.name === 'Chat' && this.missed">({{this.missed}})</span>
         </a>
       </mat-list-item>
     </mat-list>
